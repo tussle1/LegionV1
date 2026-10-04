@@ -1,7 +1,7 @@
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
-		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+		vape:CreateNotification('LEGION', 'Failed to load : '..err, 30, 'alert')
 	end
 	return res
 end
@@ -228,7 +228,7 @@ if not select(1, ...) then
 		end)
 	else
 		vape.Load = function()
-			notif('Vape', 'Missing actor functions.', 10, 'alert')
+			notif('LEGION', 'Missing actor functions.', 10, 'alert')
 		end
 	end
 

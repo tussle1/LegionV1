@@ -3,7 +3,7 @@ local component = {
 }
 
 local window = Instance.new('Frame')
-window.BackgroundColor3 = uipallet.Main
+window.BackgroundColor3 = uipallet.Surface
 window.Position = UDim2.new(0.5, -350, 0.5, -190)
 window.Size = UDim2.fromOffset(700, 380)
 window.Name = 'LegitGUI'
@@ -22,30 +22,30 @@ modal.Parent = window
 local icon = Instance.new('ImageLabel')
 icon.BackgroundTransparency = 1
 icon.Image = getvapeasset('newvape/assets/new/legit_mode_icon.png')
-icon.ImageColor3 = uipallet.Text
+icon.ImageColor3 = uipallet.Accent
 icon.Position = UDim2.fromOffset(18, 11)
 icon.Size = UDim2.fromOffset(16, 16)
 icon.Parent = window
 local close = Instance.new('ImageButton')
 close.BackgroundTransparency = 1
 close.Image = getvapeasset('newvape/assets/new/min.png')
-close.ImageColor3 = color.Light(uipallet.Main, 0.24)
+close.ImageColor3 = uipallet.Muted
 close.Position = UDim2.new(1, -31, 0, 11)
 close.Size = UDim2.fromOffset(16, 16)
 close.Parent = window
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.new(1, -253, 0, 42)
 holder.Size = UDim2.fromOffset(242, 29)
 holder.Parent = window
 addCorner(holder, UDim.new(0, 4))
 local stroke = Instance.new('UIStroke')
-stroke.Color = color.Light(uipallet.Main, 0.02)
+stroke.Color = uipallet.Border
 stroke.Parent = holder
 local searchicon = Instance.new('ImageLabel')
 searchicon.BackgroundTransparency = 1
 searchicon.Image = getvapeasset('newvape/assets/new/search.png')
-searchicon.ImageColor3 = color.Light(uipallet.Main, 0.42)
+searchicon.ImageColor3 = uipallet.Accent
 searchicon.Position = UDim2.new(1, -25, 0, 9)
 searchicon.Size = UDim2.fromOffset(12, 12)
 searchicon.Parent = holder
@@ -53,12 +53,12 @@ local box = Instance.new('TextBox')
 box.BackgroundTransparency = 1
 box.ClearTextOnFocus = false
 box.FontFace = uipallet.Font
-box.PlaceholderColor3 = color.Dark(uipallet.Text, 0.16)
+box.PlaceholderColor3 = uipallet.Muted
 box.PlaceholderText = 'Search mods'
 box.Position = UDim2.fromOffset(8, 0)
 box.Size = UDim2.new(1, -8, 1, 0)
 box.Text = ''
-box.TextColor3 = color.Dark(uipallet.Text, 0.16)
+box.TextColor3 = uipallet.Text
 box.TextSize = 14
 box.TextXAlignment = Enum.TextXAlignment.Left
 box.Parent = holder
@@ -113,24 +113,24 @@ close.MouseButton1Click:Connect(function()
 end)
 
 close.MouseEnter:Connect(function()
-	close.ImageColor3 = color.Light(uipallet.Main, 0.37)
+	close.ImageColor3 = uipallet.Text
 end)
 
 close.MouseLeave:Connect(function()
-	close.ImageColor3 = color.Light(uipallet.Main, 0.24)
+	close.ImageColor3 = uipallet.Muted
 end)
 
 vape:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
 
 holder.MouseEnter:Connect(function()
 	tween:Tween(stroke, uipallet.Tween, {
-		Color = color.Light(uipallet.Main, 0.0875)
+		Color = uipallet.Accent
 	})
 end)
 
 holder.MouseLeave:Connect(function()
 	tween:Tween(stroke, uipallet.Tween, {
-		Color = color.Light(uipallet.Main, 0.02)
+		Color = uipallet.Border
 	})
 end)
 

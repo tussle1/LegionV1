@@ -21,20 +21,20 @@ component.Object = toggle
 local icon = Instance.new('ImageLabel')
 icon.BackgroundTransparency = 1
 icon.Image = props.Icon
-icon.ImageColor3 = uipallet.Text
+icon.ImageColor3 = uipallet.Accent
 icon.Name = 'Icon'
 icon.Position = props.Position
 icon.Size = props.Size
 icon.Parent = toggle
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+holder.BackgroundColor3 = uipallet.Border
 holder.Name = 'Knob'
 holder.Position = UDim2.new(1, -30, 0, 14)
 holder.Size = UDim2.fromOffset(22, 12)
 holder.Parent = toggle
 addCorner(holder, UDim.new(1, 0))
 local knob = Instance.new('Frame')
-knob.BackgroundColor3 = uipallet.Main
+knob.BackgroundColor3 = uipallet.SurfaceRaised
 knob.Position = UDim2.fromOffset(2, 2)
 knob.Size = UDim2.fromOffset(8, 8)
 knob.Parent = holder
@@ -53,7 +53,7 @@ function component:Toggle()
 	self.Enabled = not self.Enabled
 
 	tween:Tween(holder, uipallet.Tween, {
-		BackgroundColor3 = self.Enabled and (isRainbow and Color3.fromHSV(vape:Color((vape.GUIColor.Hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value)) or (isHover and color.Light(uipallet.Main, 0.37) or color.Light(uipallet.Main, 0.14))
+		BackgroundColor3 = self.Enabled and (isRainbow and Color3.fromHSV(vape:Color((vape.GUIColor.Hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value)) or (isHover and uipallet.SurfaceRaised or uipallet.Border)
 	})
 
 	tween:Tween(knob, uipallet.Tween, {
@@ -72,7 +72,7 @@ toggle.MouseEnter:Connect(function()
 
 	if not component.Enabled then
 		tween:Tween(holder, uipallet.Tween, {
-			BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+			BackgroundColor3 = uipallet.SurfaceRaised
 		})
 	end
 end)
@@ -82,7 +82,7 @@ toggle.MouseLeave:Connect(function()
 
 	if not component.Enabled then
 		tween:Tween(holder, uipallet.Tween, {
-			BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			BackgroundColor3 = uipallet.Border
 		})
 	end
 end)

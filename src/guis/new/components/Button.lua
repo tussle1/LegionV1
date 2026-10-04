@@ -7,18 +7,18 @@ button.Text = ''
 button.Parent = children
 addTooltip(button, props.Tooltip)
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.fromOffset(10, 2)
 holder.Size = UDim2.fromOffset(200, 27)
 holder.Parent = button
 addCorner(holder)
 local title = Instance.new('TextLabel')
-title.BackgroundColor3 = uipallet.Main
-title.FontFace = uipallet.Font
+title.BackgroundColor3 = uipallet.Surface
+title.FontFace = uipallet.FontSemiBold
 title.Position = UDim2.fromOffset(2, 2)
 title.Size = UDim2.new(1, -4, 1, -4)
 title.Text = props.Name
-title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+title.TextColor3 = uipallet.Text
 title.TextSize = 14
 title.Parent = holder
 addCorner(title, UDim.new(0, 4))
@@ -26,13 +26,13 @@ props.Function = props.Function or function() end
 
 button.MouseEnter:Connect(function()
 	tween:Tween(holder, uipallet.Tween, {
-		BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+		BackgroundColor3 = uipallet.AccentSoft
 	})
 end)
 
 button.MouseLeave:Connect(function()
 	tween:Tween(holder, uipallet.Tween, {
-		BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+		BackgroundColor3 = uipallet.SurfaceRaised
 	})
 end)
 

@@ -6,7 +6,7 @@ local component = {
 
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = uipallet.Main
+button.BackgroundColor3 = uipallet.Surface
 button.BorderSizePixel = 0
 button.FontFace = uipallet.Font
 button.Name = props.Name
@@ -18,12 +18,24 @@ button.TextXAlignment = Enum.TextXAlignment.Left
 button.Parent = children
 component.Object = button
 
+local activeMarker
+if props.Window then
+	activeMarker = Instance.new('Frame')
+	activeMarker.BackgroundColor3 = uipallet.Accent
+	activeMarker.BorderSizePixel = 0
+	activeMarker.Name = 'ActiveMarker'
+	activeMarker.Position = UDim2.fromOffset(0, 6)
+	activeMarker.Size = UDim2.fromOffset(2, 28)
+	activeMarker.Visible = false
+	activeMarker.Parent = button
+	addCorner(activeMarker, UDim.new(1, 0))
+end
 local icon
 if props.Icon then
 	icon = Instance.new('ImageLabel')
 	icon.BackgroundTransparency = 1
 	icon.Image = props.Icon
-	icon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+	icon.ImageColor3 = uipallet.Accent
 	icon.Position = UDim2.fromOffset(16, 13)
 	icon.Size = props.Size
 	icon.Parent = button
@@ -33,12 +45,12 @@ end
 if props.Name == 'Profiles' then
 	local label = Instance.new('TextLabel')
 	label.AnchorPoint = Vector2.new(1, 0)
-	label.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+	label.BackgroundColor3 = uipallet.SurfaceRaised
 	label.FontFace = uipallet.Font
 	label.Position = UDim2.new(1, -36, 0, 8)
 	label.Size = UDim2.fromOffset(53, 24)
 	label.Text = 'default'
-	label.TextColor3 = color.Dark(uipallet.Text, 0.29)
+	label.TextColor3 = uipallet.Muted
 	label.TextSize = 12
 	label.Parent = button
 	addCorner(label)
@@ -48,7 +60,7 @@ end
 local arrow = Instance.new('ImageLabel')
 arrow.BackgroundTransparency = 1
 arrow.Image = getvapeasset('newvape/assets/new/expandarrow.png')
-arrow.ImageColor3 = color.Light(uipallet.Main, 0.37)
+arrow.ImageColor3 = uipallet.Muted
 arrow.Name = 'Arrow'
 arrow.Position = UDim2.new(1, -20, 0, 16)
 arrow.Size = UDim2.fromOffset(4, 8)
@@ -62,16 +74,17 @@ end
 function component:Toggle()
 	if props.Window then
 		self.Enabled = not self.Enabled
+		activeMarker.Visible = self.Enabled
 		tween:Tween(arrow, uipallet.Tween, {
 			Position = UDim2.new(1, self.Enabled and -14 or -20, 0, 16)
 		})
 
-		button.TextColor3 = self.Enabled and Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value) or uipallet.Text
+		button.TextColor3 = self.Enabled and uipallet.Accent or uipallet.Text
 		if icon then
-			icon.ImageColor3 = button.TextColor3
+			icon.ImageColor3 = self.Enabled and uipallet.Text or uipallet.Accent
 		end
 
-		button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		button.BackgroundColor3 = self.Enabled and uipallet.AccentSoft or uipallet.Surface
 		props.Window.Visible = self.Enabled
 	else
 		props.Function()
@@ -81,22 +94,22 @@ end
 button.MouseEnter:Connect(function()
 	if not component.Enabled then
 		button.TextColor3 = uipallet.Text
-		if buttonicon then
-			buttonicon.ImageColor3 = uipallet.Text
+		if icon then
+			icon.ImageColor3 = uipallet.Text
 		end
 
-		button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		button.BackgroundColor3 = uipallet.SurfaceRaised
 	end
 end)
 
 button.MouseLeave:Connect(function()
 	if not component.Enabled then
 		button.TextColor3 = color.Dark(uipallet.Text, 0.16)
-		if buttonicon then
-			buttonicon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+		if icon then
+			icon.ImageColor3 = uipallet.Accent
 		end
 
-		button.BackgroundColor3 = uipallet.Main
+		button.BackgroundColor3 = uipallet.Surface
 	end
 end)
 

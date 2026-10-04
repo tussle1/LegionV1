@@ -12,7 +12,7 @@ local component = {
 local isHover = false
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = uipallet.Main
+button.BackgroundColor3 = uipallet.Surface
 button.BorderSizePixel = 0
 button.FontFace = uipallet.Font
 button.Name = props.Name
@@ -29,7 +29,7 @@ gradient.Enabled = false
 gradient.Rotation = 90
 gradient.Parent = button
 local modulechildren = Instance.new('Frame')
-modulechildren.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+modulechildren.BackgroundColor3 = uipallet.SurfaceRaised
 modulechildren.BorderSizePixel = 0
 modulechildren.Name = props.Name..'Children'
 modulechildren.Size = UDim2.new(1, 0, 0, 0)
@@ -55,17 +55,26 @@ dots.Position = UDim2.fromOffset(4, 12)
 dots.Size = UDim2.fromOffset(3, 16)
 dots.Parent = dotsbutton
 local divider = Instance.new('Frame')
-divider.BackgroundColor3 = Color3.new(0.19, 0.19, 0.19)
-divider.BackgroundTransparency = 0.52
+divider.BackgroundColor3 = uipallet.Border
+divider.BackgroundTransparency = 0.45
 divider.BorderSizePixel = 0
 divider.Name = 'Divider'
 divider.Position = UDim2.new(0, 0, 1, -1)
 divider.Size = UDim2.new(1, 0, 0, 1)
 divider.Visible = false
 divider.Parent = button
+local activeMarker = Instance.new('Frame')
+activeMarker.BackgroundColor3 = uipallet.Accent
+activeMarker.BorderSizePixel = 0
+activeMarker.Name = 'ActiveMarker'
+activeMarker.Position = UDim2.fromOffset(0, 6)
+activeMarker.Size = UDim2.fromOffset(2, 28)
+activeMarker.Visible = false
+activeMarker.Parent = button
+addCorner(activeMarker, UDim.new(1, 0))
 local edit = Instance.new('TextButton')
 edit.AutoButtonColor = false
-edit.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+edit.BackgroundColor3 = uipallet.SurfaceRaised
 edit.BorderSizePixel = 0
 edit.Size = UDim2.fromOffset(40, 40)
 edit.Text = ''
@@ -106,6 +115,7 @@ function component:Color(hue, sat, val, isRainbow)
 	if self.Visible then
 		editbox.BackgroundColor3 = isRainbow and Color3.fromHSV(vape:Color((hue - (self.Index * 0.025)) % 1)) or Color3.fromHSV(hue, sat, val)
 		editborder.Color = editbox.BackgroundColor3
+		editborder.Thickness = 1.5
 	end
 
 	for _, component in self.Options do
@@ -133,7 +143,7 @@ function component:Load(data)
 		self:Toggle(true)
 
 		if self.Bind.Mobile then
-			self.Bind.Mobile.BackgroundColor3 = self.Enabled and Color3.new(0, 0.7, 0) or Color3.new()
+			self.Bind.Mobile.BackgroundColor3 = self.Enabled and uipallet.Success or uipallet.Surface
 		end
 	end
 
@@ -155,7 +165,7 @@ end
 function component:SetVisible(isVisible, isLoad)
 	self.Visible = isVisible
 	editbox.BackgroundTransparency = isVisible and 0 or 1
-	editborder.Color = isVisible and editbox.BackgroundColor3 or color.Light(uipallet.Main, 0.37)
+	editborder.Color = isVisible and editbox.BackgroundColor3 or uipallet.Border
 
 	if isLoad and not vape.EditGUI then
 		button.Visible = isVisible
@@ -168,10 +178,11 @@ function component:Toggle(multiple)
 	end
 
 	self.Enabled = not self.Enabled
+	activeMarker.Visible = self.Enabled
 	divider.Visible = self.Enabled
 	gradient.Enabled = self.Enabled
 	button.TextColor3 = (isHover or modulechildren.Visible) and uipallet.Text or color.Dark(uipallet.Text, 0.16)
-	button.BackgroundColor3 = (isHover or modulechildren.Visible) and color.Light(uipallet.Main, 0.02) or uipallet.Main
+	button.BackgroundColor3 = (isHover or modulechildren.Visible) and uipallet.SurfaceRaised or uipallet.Surface
 	dots.ImageColor3 = self.Enabled and Color3.fromRGB(50, 50, 50) or color.Light(uipallet.Main, 0.37)
 	component.Bind:SetColor(color.Dark(uipallet.Text, 0.43))
 
@@ -209,7 +220,7 @@ button.MouseEnter:Connect(function()
 	isHover = true
 	if not component.Enabled and not modulechildren.Visible then
 		button.TextColor3 = uipallet.Text
-		button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		button.BackgroundColor3 = uipallet.SurfaceRaised
 	end
 
 	component.Bind:SetVisible(isHover or modulechildren.Visible)
@@ -219,7 +230,7 @@ button.MouseLeave:Connect(function()
 	isHover = false
 	if not component.Enabled and not modulechildren.Visible then
 		button.TextColor3 = color.Dark(uipallet.Text, 0.16)
-		button.BackgroundColor3 = uipallet.Main
+		button.BackgroundColor3 = uipallet.Surface
 	end
 
 	component.Bind:SetVisible(isHover or modulechildren.Visible)
@@ -278,14 +289,14 @@ bind.Triggered:Connect(function(isDown)
 	if bind.Hold then
 		if component.Enabled ~= isDown then
 			if vape.ToggleNotifications.Enabled then
-				vape:CreateNotification(props.Name, (not component.Enabled and "<font color='#00AA00'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>"), 1.5)
+				vape:CreateNotification(props.Name, (not component.Enabled and "<font color='#4ED3A4'>Enabled</font>" or "<font color='#F2586C'>Disabled</font>"), 1.5)
 			end
 
 			component:Toggle(true)
 		end
 	else
 		if vape.ToggleNotifications.Enabled then
-			vape:CreateNotification(props.Name, (not component.Enabled and "<font color='#00AA00'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>"), 1.5)
+			vape:CreateNotification(props.Name, (not component.Enabled and "<font color='#4ED3A4'>Enabled</font>" or "<font color='#F2586C'>Disabled</font>"), 1.5)
 		end
 
 		component:Toggle(true)

@@ -2,9 +2,9 @@ local vape = {
 	ActiveBinds = {},
 	Categories = {},
 	GUIColor = {
-		Hue = 0.46,
-		Sat = 0.96,
-		Value = 0.52
+		Hue = 0.535,
+		Sat = 0.78,
+		Value = 0.94
 	},
 	HeldKeybinds = {},
 	Loaded = false,
@@ -75,6 +75,8 @@ local function addBlur(parent, notif, old)
 		blur.Position = UDim2.fromOffset(-48, -31)
 		blur.BackgroundTransparency = 1
 		blur.Image = getvapeasset('newvape/assets/new/'..(notif and 'blurnoti' or 'blur')..'.png')
+		blur.ImageColor3 = uipallet.Accent
+		blur.ImageTransparency = 0.88
 		blur.ScaleType = Enum.ScaleType.Slice
 		blur.SliceCenter = Rect.new(52, 31, 261, 502)
 		blur.Parent = parent
@@ -85,12 +87,34 @@ local function addBlur(parent, notif, old)
 		blur.Parent = parent
 	end
 
+	local texturePath = 'newvape/assets/new/legion-panel-texture.png'
+	local textureSuccess, textureAsset = false, ''
+	if isfile(texturePath) then
+		textureSuccess, textureAsset = pcall(getvapeasset, texturePath)
+	end
+	if textureSuccess and textureAsset ~= '' then
+		local texture = Instance.new('ImageLabel')
+		texture.BackgroundTransparency = 1
+		texture.Name = 'LegionSurfaceTexture'
+		texture.Position = UDim2.fromScale(0, 0)
+		texture.Size = UDim2.fromScale(1, 1)
+		texture.ScaleType = Enum.ScaleType.Crop
+		texture.Image = textureAsset
+		texture.ImageColor3 = Color3.fromRGB(174, 220, 240)
+		texture.ImageTransparency = 0.9
+		texture.ZIndex = parent.ZIndex
+		texture.Parent = parent
+		local textureCorner = Instance.new('UICorner')
+		textureCorner.CornerRadius = UDim.new(0, 8)
+		textureCorner.Parent = texture
+	end
+
 	return blur
 end
 
 local function addCorner(parent, radius)
 	local corner = Instance.new('UICorner')
-	corner.CornerRadius = radius or UDim.new(0, 5)
+	corner.CornerRadius = radius or UDim.new(0, 8)
 	corner.Parent = parent
 
 	return corner
@@ -99,7 +123,7 @@ end
 local function addCloseButton(parent, mini, offset)
 	local close = Instance.new('ImageButton')
 	close.AutoButtonColor = false
-	close.BackgroundColor3 = Color3.new(1, 1, 1)
+	close.BackgroundColor3 = uipallet.AccentSoft
 	close.BackgroundTransparency = 1
 	close.Image = getvapeasset('newvape/assets/new/'..(mini and 'closemini' or 'close')..'.png')
 	close.ImageColor3 = color.Light(uipallet.Text, 0.2)
@@ -354,8 +378,10 @@ function vape:CreateNotification(title, text, duration, type)
 		end
 
 		local index = #notifications:GetChildren() + 1
+		local noticeColor = type == 'alert' and uipallet.Danger or type == 'warning' and uipallet.Warning or uipallet.Accent
 		local notification = Instance.new('ImageLabel')
 		notification.BackgroundTransparency = 1
+		notification.ImageColor3 = uipallet.Surface
 		notification.Position = UDim2.new(1, 0, 1, -(29 + (78 * index)))
 		notification.Image = getvapeasset('newvape/assets/new/notification.png')
 		notification.ScaleType = Enum.ScaleType.Slice
@@ -373,7 +399,7 @@ function vape:CreateNotification(title, text, duration, type)
 		iconshadow.ZIndex = 5
 		iconshadow.Parent = notification
 		local icon = iconshadow:Clone()
-		icon.ImageColor3 = Color3.new(1, 1, 1)
+		icon.ImageColor3 = noticeColor
 		icon.ImageTransparency = 0
 		icon.Position = UDim2.fromOffset(-1, -1)
 		icon.Parent = iconshadow
@@ -384,7 +410,7 @@ function vape:CreateNotification(title, text, duration, type)
 		label.RichText = true
 		label.Size = UDim2.new(1, -56, 0, 20)
 		label.Text = "<stroke joins='round' thickness='0.3' transparency='0.5'>"..title..'</stroke>'
-		label.TextColor3 = type == 'alert' and Color3.fromRGB(250, 50, 56) or Color3.new(1, 1, 1)
+		label.TextColor3 = type == 'alert' and uipallet.Danger or uipallet.Text
 		label.TextSize = 14
 		label.TextXAlignment = Enum.TextXAlignment.Left
 		label.TextYAlignment = Enum.TextYAlignment.Top
@@ -403,17 +429,22 @@ function vape:CreateNotification(title, text, duration, type)
 		textlabel.Position = UDim2.fromOffset(-1, -1)
 		textlabel.RichText = true
 		textlabel.Text = text
-		textlabel.TextColor3 = Color3.fromRGB(170, 170, 170)
+		textlabel.TextColor3 = uipallet.Muted
 		textlabel.TextTransparency = 0
 		textlabel.Parent = textshadow
+		local edge = Instance.new('Frame')
+		edge.BackgroundColor3 = noticeColor
+		edge.BorderSizePixel = 0
+		edge.Position = UDim2.fromOffset(0, 12)
+		edge.Size = UDim2.new(0, 2, 1, -24)
+		edge.ZIndex = 5
+		edge.Parent = notification
+		addCorner(edge, UDim.new(1, 0))
 		local progress = Instance.new('Frame')
-		progress.BackgroundColor3 =
-			type == 'alert' and Color3.fromRGB(250, 50, 56)
-			or type == 'warning' and Color3.fromRGB(236, 129, 44)
-			or Color3.new(1, 1, 1)
+		progress.BackgroundColor3 = noticeColor
 		progress.BorderSizePixel = 0
 		progress.Position = UDim2.new(0, 3, 1, -4)
-		progress.Size = UDim2.new(1, -13, 0, 1)
+		progress.Size = UDim2.new(1, -13, 0, 2)
 		progress.ZIndex = 5
 		progress.Parent = notification
 
@@ -455,7 +486,7 @@ function vape:Load(skipgui, profile)
 		guiData = loadJson('newvape/profiles/'..game.GameId..'.gui.txt')
 		if not guiData then
 			guiData = {Categories = {}}
-			self:CreateNotification('Vape', 'Failed to load GUI settings.', 10, 'alert')
+			self:CreateNotification('LEGION', 'Failed to load GUI settings.', 10, 'alert')
 			canSave = false
 		end
 
@@ -487,7 +518,7 @@ function vape:Load(skipgui, profile)
 		local mainData = loadJson('newvape/profiles/'..self.Profile..self.Place..'.txt')
 		if not mainData then
 			mainData = {Categories = {}, Modules = {}, Legit = {}}
-			self:CreateNotification('Vape', 'Failed to load '..self.Profile..' profile.', 10, 'alert')
+			self:CreateNotification('LEGION', 'Failed to load '..self.Profile..' profile.', 10, 'alert')
 			canSave = false
 		end
 
@@ -544,11 +575,16 @@ function vape:Load(skipgui, profile)
 		button.Size = UDim2.fromOffset(32, 32)
 		button.Text = ''
 		button.Parent = gui
-		local image = Instance.new('ImageLabel')
+		local image = Instance.new('TextLabel')
 		image.BackgroundTransparency = 1
-		image.Image = getvapeasset('newvape/assets/new/vape.png')
-		image.Position = UDim2.fromOffset(6, 6)
-		image.Size = UDim2.fromOffset(20, 20)
+		image.FontFace = uipallet.FontSemiBold
+		image.Position = UDim2.fromOffset(0, 0)
+		image.Size = UDim2.fromScale(1, 1)
+		image.Text = 'L'
+		image.TextColor3 = uipallet.Text
+		image.TextSize = 20
+		image.TextXAlignment = Enum.TextXAlignment.Center
+		image.TextYAlignment = Enum.TextYAlignment.Center
 		image.Parent = button
 		addCorner(button, UDim.new(1, 0))
 

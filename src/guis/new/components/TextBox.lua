@@ -25,7 +25,7 @@ title.TextSize = 12
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = textbox
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.fromOffset(10, 23)
 holder.Size = UDim2.new(1, -20, 0, 29)
 holder.Parent = textbox
@@ -52,7 +52,7 @@ if props.Player then
 	autocomplete.Position = UDim2.fromOffset(8, 0)
 	autocomplete.Size = UDim2.new(1, -8, 1, 0)
 	autocomplete.Text = ''
-	autocomplete.TextColor3 = Color3.new(0.6, 0.6, 0.6)
+	autocomplete.TextColor3 = uipallet.Muted
 	autocomplete.TextSize = 12
 	autocomplete.TextXAlignment = Enum.TextXAlignment.Left
 	autocomplete.Parent = holder

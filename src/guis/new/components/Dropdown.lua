@@ -15,14 +15,14 @@ dropdown.Parent = children
 component.Object = dropdown
 addTooltip(dropdown, props.Tooltip or props.Name)
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.fromOffset(10, 4)
 holder.Size = UDim2.new(1, -20, 1, -11)
 holder.Parent = dropdown
 addCorner(holder, UDim.new(0, 6))
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = uipallet.Main
+button.BackgroundColor3 = uipallet.Surface
 button.Position = UDim2.fromOffset(1, 1)
 button.Size = UDim2.new(1, -2, 1, -2)
 button.Text = ''
@@ -41,7 +41,7 @@ addCorner(button, UDim.new(0, 6))
 local arrow = Instance.new('ImageLabel')
 arrow.BackgroundTransparency = 1
 arrow.Image = getvapeasset('newvape/assets/new/expandarrow.png')
-arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+arrow.ImageColor3 = uipallet.Muted
 arrow.Position = UDim2.new(1, -17, 0, 11)
 arrow.Rotation = 90
 arrow.Size = UDim2.fromOffset(4, 8)

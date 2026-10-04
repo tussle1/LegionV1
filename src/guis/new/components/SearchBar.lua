@@ -2,10 +2,11 @@ local component = {
 	Type = 'SearchBar'
 }
 
-local function listenProperty(src, dest, prop, obj)
-	dest[prop] = src[prop]
-	local connection = src:GetPropertyChangedSignal(prop):Connect(function()
-		dest[prop] = src[prop]
+local function listenProperty(src, dest, sourceProp, obj, destProp)
+	destProp = destProp or sourceProp
+	dest[destProp] = src[sourceProp]
+	local connection = src:GetPropertyChangedSignal(sourceProp):Connect(function()
+		dest[destProp] = src[sourceProp]
 	end)
 
 	obj.Destroying:Once(function()
@@ -15,7 +16,7 @@ end
 
 local search = Instance.new('Frame')
 search.AnchorPoint = Vector2.new(0.5, 0)
-search.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+search.BackgroundColor3 = uipallet.Surface
 search.Name = 'Search'
 search.Position = UDim2.new(0.5, 0, 0, 13)
 search.Size = UDim2.fromOffset(220, 37)
@@ -26,7 +27,7 @@ addCorner(search)
 local icon = Instance.new('ImageLabel')
 icon.BackgroundTransparency = 1
 icon.Image = getvapeasset('newvape/assets/new/search.png')
-icon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+icon.ImageColor3 = uipallet.Accent
 icon.Position = UDim2.new(1, -25, 0, 11)
 icon.Size = UDim2.fromOffset(14, 14)
 icon.Parent = search
@@ -37,9 +38,9 @@ legiticon.Name = 'Legit'
 legiticon.Position = UDim2.fromOffset(8, 11)
 legiticon.Size = UDim2.fromOffset(29, 16)
 legiticon.Parent = search
-listenProperty(vape.Categories.Main.Object.VapeLogo.V4Logo, legiticon, 'ImageColor3', legiticon)
+listenProperty(vape.Categories.Main.Object.LEGIONLogo.LEGIONMark, legiticon, 'TextColor3', legiticon, 'ImageColor3')
 local legitdivider = Instance.new('Frame')
-legitdivider.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+legitdivider.BackgroundColor3 = uipallet.Border
 legitdivider.BorderSizePixel = 0
 legitdivider.Name = 'LegitDivider'
 legitdivider.Position = UDim2.fromOffset(43, 13)
@@ -49,11 +50,12 @@ local box = Instance.new('TextBox')
 box.BackgroundTransparency = 1
 box.ClearTextOnFocus = false
 box.FontFace = uipallet.Font
-box.PlaceholderText = ''
+box.PlaceholderText = 'Search modules'
 box.Position = UDim2.fromOffset(50, 0)
 box.Size = UDim2.new(1, -50, 0, 37)
 box.Text = ''
 box.TextColor3 = uipallet.Text
+box.PlaceholderColor3 = uipallet.Muted
 box.TextSize = 12
 box.TextXAlignment = Enum.TextXAlignment.Left
 box.Parent = search
@@ -67,8 +69,8 @@ children.ScrollBarImageTransparency = 0.75
 children.Size = UDim2.new(1, 0, 1, -37)
 children.Parent = search
 local divider = Instance.new('Frame')
-divider.BackgroundColor3 = Color3.new(1, 1, 1)
-divider.BackgroundTransparency = 0.928
+divider.BackgroundColor3 = uipallet.Border
+divider.BackgroundTransparency = 0.45
 divider.BorderSizePixel = 0
 divider.Position = UDim2.fromOffset(0, 33)
 divider.Size = UDim2.new(1, 0, 0, 1)
@@ -76,9 +78,20 @@ divider.Visible = false
 divider.Parent = search
 local stroke = Instance.new('UIStroke')
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-stroke.Color = Color3.fromRGB(85, 85, 85)
-stroke.Transparency = 0.8
+stroke.Color = uipallet.Border
+stroke.Thickness = 1
+stroke.Transparency = 0.24
 stroke.Parent = search
+box.Focused:Connect(function()
+	stroke.Color = uipallet.Accent
+	stroke.Transparency = 0.05
+end)
+
+box.FocusLost:Connect(function()
+	stroke.Color = uipallet.Border
+	stroke.Transparency = 0.24
+end)
+
 local windowlist = Instance.new('UIListLayout')
 windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
 windowlist.SortOrder = Enum.SortOrder.LayoutOrder

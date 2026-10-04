@@ -9,7 +9,7 @@ local component = {
 
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+button.BackgroundColor3 = uipallet.SurfaceRaised
 button.Name = props.Name
 button.Text = ''
 button.Parent = children
@@ -29,13 +29,13 @@ title.TextSize = 13
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = button
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+holder.BackgroundColor3 = uipallet.Border
 holder.Position = UDim2.new(1, -57, 0, 15)
 holder.Size = UDim2.fromOffset(22, 12)
 holder.Parent = button
 addCorner(holder, UDim.new(1, 0))
 local knob = Instance.new('Frame')
-knob.BackgroundColor3 = uipallet.Main
+knob.BackgroundColor3 = uipallet.SurfaceRaised
 knob.Position = UDim2.fromOffset(2, 2)
 knob.Size = UDim2.fromOffset(8, 8)
 knob.Parent = holder
@@ -50,7 +50,7 @@ dotsbutton.Parent = button
 local dots = Instance.new('ImageLabel')
 dots.BackgroundTransparency = 1
 dots.Image = getvapeasset('newvape/assets/new/overlaydots.png')
-dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+dots.ImageColor3 = uipallet.Muted
 dots.Name = 'Dots'
 dots.Position = UDim2.fromOffset(6, 6)
 dots.Size = UDim2.fromOffset(2, 12)
@@ -69,7 +69,7 @@ addCorner(shadow)
 local settingspane = Instance.new('TextButton')
 settingspane.Size = UDim2.new(0, 220, 1, 0)
 settingspane.Position = UDim2.fromScale(1, 0)
-settingspane.BackgroundColor3 = uipallet.Main
+settingspane.BackgroundColor3 = uipallet.Surface
 settingspane.AutoButtonColor = false
 settingspane.Text = ''
 settingspane.Parent = shadow
@@ -82,7 +82,7 @@ settingstitle.Text = props.Name
 settingstitle.TextXAlignment = Enum.TextXAlignment.Left
 settingstitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
 settingstitle.TextSize = 13
-settingstitle.FontFace = uipallet.Font
+settingstitle.FontFace = uipallet.FontSemiBold
 settingstitle.Parent = settingspane
 local back = Instance.new('ImageButton')
 back.Name = 'Back'
@@ -90,11 +90,11 @@ back.Size = UDim2.fromOffset(16, 16)
 back.Position = UDim2.fromOffset(11, 13)
 back.BackgroundTransparency = 1
 back.Image = getvapeasset('newvape/assets/new/back.png')
-back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+back.ImageColor3 = uipallet.Muted
 back.Parent = settingspane
 addCorner(settingspane)
 local settingschildren = Instance.new('ScrollingFrame')
-settingschildren.BackgroundColor3 = uipallet.Main
+settingschildren.BackgroundColor3 = uipallet.Surface
 settingschildren.BorderSizePixel = 0
 settingschildren.CanvasSize = UDim2.new()
 settingschildren.Name = 'Children'
@@ -115,7 +115,7 @@ if props.Size then
 	modulechildren.Parent = scaledgui
 	addDragHandler(modulechildren, api.Window)
 	local objectstroke = Instance.new('UIStroke')
-	objectstroke.Color = Color3.fromRGB(5, 134, 105)
+	objectstroke.Color = uipallet.Accent
 	objectstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 	objectstroke.Thickness = 0
 	objectstroke.Parent = modulechildren
@@ -167,10 +167,10 @@ function component:Toggle()
 	end
 
 	title.TextColor3 = self.Enabled and color.Light(uipallet.Text, 0.2) or color.Dark(uipallet.Text, 0.31)
-	button.BackgroundColor3 = self.Enabled and color.Light(uipallet.Main, 0.05) or button.BackgroundColor3
+	button.BackgroundColor3 = self.Enabled and uipallet.SurfaceRaised or button.BackgroundColor3
 
 	tween:Tween(holder, uipallet.Tween, {
-		BackgroundColor3 = self.Enabled and Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value) or color.Light(uipallet.Main, 0.14)
+		BackgroundColor3 = self.Enabled and Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value) or uipallet.Border
 	})
 
 	tween:Tween(knob, uipallet.Tween, {
@@ -198,7 +198,7 @@ back.MouseEnter:Connect(function()
 end)
 
 back.MouseLeave:Connect(function()
-	back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+	back.ImageColor3 = uipallet.Muted
 end)
 
 back.MouseButton1Click:Connect(function()
@@ -217,13 +217,13 @@ end)
 
 button.MouseEnter:Connect(function()
 	if not component.Enabled then
-		button.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+		button.BackgroundColor3 = uipallet.SurfaceRaised
 	end
 end)
 
 button.MouseLeave:Connect(function()
 	if not component.Enabled then
-		button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		button.BackgroundColor3 = uipallet.SurfaceRaised
 	end
 end)
 
@@ -260,7 +260,7 @@ dotsbutton.MouseEnter:Connect(function()
 end)
 
 dotsbutton.MouseLeave:Connect(function()
-	dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+	dots.ImageColor3 = uipallet.Muted
 end)
 
 shadow.MouseButton1Click:Connect(function()

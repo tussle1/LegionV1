@@ -14,21 +14,58 @@ component.Object = window
 addBlur(window)
 addCorner(window)
 addDragHandler(window)
-local logo = Instance.new('ImageLabel')
-logo.BackgroundTransparency = 1
-logo.Image = getvapeasset('newvape/assets/new/vapelogomini.png')
-logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
-logo.Name = 'VapeLogo'
-logo.Position = UDim2.fromOffset(12, 11)
-logo.Size = UDim2.fromOffset(55, 16)
+local logo = Instance.new('Frame')
+logo.BackgroundColor3 = uipallet.SurfaceRaised
+logo.BorderSizePixel = 0
+logo.Name = 'LEGIONLogo'
+logo.Position = UDim2.fromOffset(10, 7)
+logo.Size = UDim2.fromOffset(26, 26)
 logo.Parent = window
-local v4logo = Instance.new('ImageLabel')
-v4logo.BackgroundTransparency = 1
-v4logo.Image = getvapeasset('newvape/assets/new/v4mini.png')
-v4logo.Name = 'V4Logo'
-v4logo.Position = UDim2.new(1, -1, 0, 0)
-v4logo.Size = UDim2.fromOffset(23, 16)
-v4logo.Parent = logo
+addCorner(logo, UDim.new(0, 7))
+local logoStroke = Instance.new('UIStroke')
+logoStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+logoStroke.Color = uipallet.Accent
+logoStroke.Thickness = 1
+logoStroke.Transparency = 0.1
+logoStroke.Parent = logo
+local brandMark = Instance.new('TextLabel')
+brandMark.BackgroundTransparency = 1
+brandMark.BorderSizePixel = 0
+brandMark.FontFace = uipallet.FontSemiBold
+brandMark.Name = 'LEGIONMark'
+brandMark.Size = UDim2.fromScale(1, 1)
+brandMark.Text = 'L'
+brandMark.TextColor3 = uipallet.Accent
+brandMark.TextSize = 17
+brandMark.TextXAlignment = Enum.TextXAlignment.Center
+brandMark.TextYAlignment = Enum.TextYAlignment.Center
+brandMark.Parent = logo
+local wordmark = Instance.new('TextLabel')
+wordmark.BackgroundTransparency = 1
+wordmark.BorderSizePixel = 0
+wordmark.FontFace = uipallet.FontSemiBold
+wordmark.Name = 'LEGIONWordmark'
+wordmark.Position = UDim2.fromOffset(44, 5)
+wordmark.Size = UDim2.fromOffset(96, 28)
+wordmark.Text = 'LEGION'
+wordmark.TextColor3 = uipallet.Text
+wordmark.TextSize = 14
+wordmark.TextXAlignment = Enum.TextXAlignment.Left
+wordmark.TextYAlignment = Enum.TextYAlignment.Center
+wordmark.Parent = window
+local wordmarkGradient = Instance.new('UIGradient')
+wordmarkGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, uipallet.Text),
+	ColorSequenceKeypoint.new(1, uipallet.Accent)
+})
+wordmarkGradient.Parent = wordmark
+local wordmarkUnderline = Instance.new('Frame')
+wordmarkUnderline.BackgroundColor3 = uipallet.Accent
+wordmarkUnderline.BackgroundTransparency = 0.25
+wordmarkUnderline.BorderSizePixel = 0
+wordmarkUnderline.Position = UDim2.fromOffset(44, 29)
+wordmarkUnderline.Size = UDim2.fromOffset(42, 1)
+wordmarkUnderline.Parent = window
 local children = Instance.new('Frame')
 children.BackgroundTransparency = 1
 children.Position = UDim2.fromOffset(0, 37)
@@ -48,21 +85,23 @@ addTooltip(settingsbutton, 'Open settings')
 local settingsicon = Instance.new('ImageLabel')
 settingsicon.BackgroundTransparency = 1
 settingsicon.Image = getvapeasset('newvape/assets/new/settings.png')
-settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+settingsicon.ImageColor3 = uipallet.Muted
 settingsicon.Position = UDim2.fromOffset(15, 12)
 settingsicon.Size = UDim2.fromOffset(14, 14)
 settingsicon.Parent = settingsbutton
 local discord = Instance.new('ImageButton')
 discord.BackgroundTransparency = 1
 discord.Image = getvapeasset('newvape/assets/new/discord.png')
+discord.ImageColor3 = uipallet.Accent
 discord.Position = UDim2.new(1, -56, 0, 11)
 discord.Size = UDim2.fromOffset(16, 16)
 discord.Parent = window
 addTooltip(discord, 'Join discord')
 local stroke = Instance.new('UIStroke')
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-stroke.Color = Color3.fromRGB(85, 85, 85)
-stroke.Transparency = 0.8
+stroke.Color = uipallet.Border
+stroke.Thickness = 1
+stroke.Transparency = 0.32
 stroke.Parent = window
 local settingspane = components.SettingsPane({
 	Name = 'Settings',
@@ -71,7 +110,8 @@ local settingspane = components.SettingsPane({
 component.Settings = settingspane
 
 function component:Color(hue, sat, val, isRainbow)
-	v4logo.ImageColor3 = Color3.fromHSV(hue, sat, val)
+	brandMark.TextColor3 = Color3.fromHSV(hue, sat, val)
+	logoStroke.Color = brandMark.TextColor3
 
 	for _, button in self.Buttons do
 		if button.Enabled then
@@ -156,7 +196,7 @@ settingsbutton.MouseEnter:Connect(function()
 end)
 
 settingsbutton.MouseLeave:Connect(function()
-	settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+	settingsicon.ImageColor3 = uipallet.Muted
 end)
 
 settingsbutton.MouseButton1Click:Connect(function()

@@ -35,7 +35,7 @@ scarcitybanner.FontFace = uipallet.Font
 scarcitybanner.Position = UDim2.fromScale(0, 0.97)
 scarcitybanner.Size = UDim2.fromScale(1, 0.018)
 scarcitybanner.Text = 'All update logs and game support are found in the discord, click the discord icon to join.'
-scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
+scarcitybanner.TextColor3 = uipallet.Muted
 scarcitybanner.TextScaled = true
 scarcitybanner.TextStrokeTransparency = 0.5
 scarcitybanner.Parent = clickgui
@@ -54,12 +54,12 @@ notifications = Instance.new('Folder')
 notifications.Name = 'Notifications'
 notifications.Parent = scaledgui
 tooltip = Instance.new('TextLabel')
-tooltip.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+tooltip.BackgroundColor3 = uipallet.SurfaceRaised
 tooltip.FontFace = uipallet.Font
 tooltip.Position = UDim2.fromScale(-1, -1)
 tooltip.RichText = true
 tooltip.Text = ''
-tooltip.TextColor3 = color.Dark(uipallet.Text, 0.16)
+tooltip.TextColor3 = uipallet.Text
 tooltip.TextSize = 12
 tooltip.Visible = false
 tooltip.ZIndex = 5
@@ -122,7 +122,7 @@ do
 		Icon = getvapeasset('newvape/assets/new/friends.png'),
 		Size = UDim2.fromOffset(17, 16),
 		Placeholder = 'Roblox username',
-		Color = Color3.fromRGB(5, 134, 105),
+		Color = uipallet.Accent,
 		Player = true,
 		Function = function()
 			friends.Update:Fire()
@@ -288,7 +288,7 @@ general:CreateButton({
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeCompiled/'..readfile('newvape/profiles/commit.txt')..'/loader.lua', true))()
 		end
 	end,
-	Tooltip = 'This will set your profile to the default settings of Vape'
+	Tooltip = 'Restores the default profile settings supplied by the upstream base'
 })
 
 general:CreateButton({
@@ -296,7 +296,7 @@ general:CreateButton({
 	Function = function()
 		vape:Uninject()
 	end,
-	Tooltip = 'Removes vape from the current game'
+	Tooltip = 'Unloads LEGION from the current game'
 })
 
 general:CreateButton({
@@ -309,7 +309,7 @@ general:CreateButton({
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeCompiled/'..readfile('newvape/profiles/commit.txt')..'/loader.lua', true))()
 		end
 	end,
-	Tooltip = 'Reloads vape for debugging purposes'
+	Tooltip = 'Reloads LEGION for debugging purposes'
 })
 
 --[[
@@ -443,7 +443,7 @@ vape.RainbowUpdateSpeed = guipane:CreateSlider({
 			end
 		end
 	end,
-	Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
+	Tooltip = 'new - LEGION theme based on the upstream V4.05 layout\nold - legacy upstream theme\nrise - Rise 6.0'
 })]]
 
 guipane:CreateDropdown({

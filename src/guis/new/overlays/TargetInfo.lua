@@ -35,7 +35,7 @@ TargetInfoOverlay = vape:CreateOverlay({
 
 local Holder = Instance.new('Frame')
 Holder.Size = UDim2.fromOffset(240, 89)
-Holder.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+Holder.BackgroundColor3 = uipallet.Surface
 Holder.BackgroundTransparency = 0.5
 Holder.Parent = TargetInfoOverlay.Children
 local BlurHolder = addBlur(Holder, nil, true)
@@ -44,7 +44,7 @@ addCorner(Holder)
 local Headshot = Instance.new('ImageLabel')
 Headshot.Size = UDim2.fromOffset(26, 27)
 Headshot.Position = UDim2.fromOffset(19, 17)
-Headshot.BackgroundColor3 = uipallet.Main
+Headshot.BackgroundColor3 = uipallet.SurfaceRaised
 Headshot.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
 Headshot.Parent = Holder
 addCorner(Headshot)
@@ -66,7 +66,7 @@ Name.TextYAlignment = Enum.TextYAlignment.Top
 Name.TextScaled = true
 Name.TextColor3 = color.Light(uipallet.Text, 0.4)
 Name.TextStrokeTransparency = 1
-Name.FontFace = uipallet.Font
+Name.FontFace = uipallet.FontSemiBold
 local NameShadow = Name:Clone()
 NameShadow.Position = UDim2.fromOffset(55, 21)
 NameShadow.TextColor3 = Color3.new()
@@ -83,14 +83,14 @@ local HealthBKG = Instance.new('Frame')
 HealthBKG.Name = 'HealthBKG'
 HealthBKG.Size = UDim2.fromOffset(200, 9)
 HealthBKG.Position = UDim2.fromOffset(20, 56)
-HealthBKG.BackgroundColor3 = uipallet.Main
+HealthBKG.BackgroundColor3 = uipallet.Border
 HealthBKG.BorderSizePixel = 0
 HealthBKG.Parent = Holder
 addCorner(HealthBKG, UDim.new(1, 0))
 local Health = HealthBKG:Clone()
 Health.Size = UDim2.fromScale(0.8, 1)
 Health.Position = UDim2.new()
-Health.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
+Health.BackgroundColor3 = uipallet.Accent
 Health.Parent = HealthBKG
 Health:GetPropertyChangedSignal('Size'):Connect(function()
 	Health.Visible = Health.Size.X.Scale > 0.01
@@ -109,12 +109,12 @@ local HealthBlur = addBlur(HealthBKG)
 HealthBlur.Enabled = false
 local Stroke = Instance.new('UIStroke')
 Stroke.Enabled = false
-Stroke.Color = Color3.fromHSV(0.44, 1, 1)
+Stroke.Color = uipallet.Accent
 Stroke.Parent = Holder
 
 TargetInfoOverlay:CreateFont({
 	Name = 'Font',
-	Default = 'Arial',
+	Default = 'Gotham',
 	Function = function(val)
 		Name.FontFace = val
 	end
@@ -155,9 +155,9 @@ CustomColor = TargetInfoOverlay:CreateToggle({
 			Headshot.BackgroundColor3 = Color3.fromHSV(BKGColor.Hue, BKGColor.Sat, math.max(BKGColor.Value - 0.1, 0.075))
 			HealthBKG.BackgroundColor3 = Headshot.BackgroundColor3
 		else
-			Holder.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
-			Headshot.BackgroundColor3 = uipallet.Main
-			HealthBKG.BackgroundColor3 = uipallet.Main
+			Holder.BackgroundColor3 = uipallet.Surface
+			Headshot.BackgroundColor3 = uipallet.SurfaceRaised
+			HealthBKG.BackgroundColor3 = uipallet.Border
 		end
 	end
 })

@@ -1,7 +1,7 @@
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
-		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+		vape:CreateNotification('LEGION', 'Failed to load : '..err, 30, 'alert')
 	end
 	return res
 end
@@ -152,7 +152,7 @@ local function serverHop(pointer, filter)
 	end
 
 	if not pointer then
-		notif('Vape', 'Searching for an available server.', 2)
+		notif('LEGION', 'Searching for an available server.', 2)
 	end
 
 	local success, httpdata = pcall(function()
@@ -166,7 +166,7 @@ local function serverHop(pointer, filter)
 				cacheExpire, cache = os.clock() + 60, httpdata
 				table.insert(attempted, v.id)
 
-				notif('Vape', 'Found! Teleporting.', 5)
+				notif('LEGION', 'Found! Teleporting.', 5)
 				teleportService:TeleportToPlaceInstance(game.PlaceId, v.id)
 				return
 			end
@@ -175,10 +175,10 @@ local function serverHop(pointer, filter)
 		if data.nextPageCursor then
 			serverHop(data.nextPageCursor, filter)
 		else
-			notif('Vape', 'Failed to find an available server.', 5, 'warning')
+			notif('LEGION', 'Failed to find an available server.', 5, 'warning')
 		end
 	else
-		notif('Vape', 'Failed to grab servers. ('..(data and data.errors[1].message or 'no data')..')', 5, 'warning')
+		notif('LEGION', 'Failed to grab servers. ('..(data and data.errors[1].message or 'no data')..')', 5, 'warning')
 	end
 end
 
@@ -451,7 +451,7 @@ run(function()
 			if self.localprio == 0 then
 				olduninject = vape.Uninject
 				vape.Uninject = function()
-					notif('Vape', 'No escaping the private members :)', 10)
+					notif('LEGION', 'No escaping the private members :)', 10)
 				end
 			end
 		end
@@ -640,7 +640,7 @@ run(function()
 		if success then
 			return sendToast({
 				toastTitle = text,
-				iconImage = getvapeasset('newvape/assets/new/vape.png'),
+				iconImage = '',
 				swipeUpDismiss = true,
 				onActivated = function() end
 			})
@@ -709,9 +709,14 @@ run(function()
 		iconframe.Size = UDim2.fromOffset(36, 36)
 		iconframe.BackgroundTransparency = 1
 		iconframe.Parent = mainframe
-		local icon = Instance.new('ImageLabel')
+		local icon = Instance.new('TextLabel')
 		icon.Size = UDim2.fromOffset(36, 36)
-		icon.Image = getvapeasset('newvape/assets/new/vape.png')
+		icon.Text = 'L'
+		icon.TextColor3 = Color3.new(1, 1, 1)
+		icon.TextSize = 26
+		icon.TextXAlignment = Enum.TextXAlignment.Center
+		icon.TextYAlignment = Enum.TextYAlignment.Center
+		icon.FontFace = Font.fromName('BuilderSans', Enum.FontWeight.Bold)
 		icon.BackgroundTransparency = 1
 		icon.Parent = iconframe
 		constraint.MaxSize = Vector2.new(math.max(getfontbounds(text, 20, textlabel.FontFace).X + 80, 600), math.huge)

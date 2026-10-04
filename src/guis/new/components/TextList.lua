@@ -7,7 +7,7 @@ local component = {
 	Window = {Visible = false}
 }
 
-props.Color = props.Color or Color3.fromRGB(5, 134, 105)
+props.Color = props.Color or uipallet.Accent
 local textlist = Instance.new('TextButton')
 textlist.AutoButtonColor = false
 textlist.BackgroundColor3 = color.Dark(children.BackgroundColor3, props.Darker and 0.02 or 0)
@@ -19,14 +19,14 @@ textlist.Parent = children
 component.Object = textlist
 addTooltip(textlist, props.Tooltip)
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.fromOffset(10, 4)
 holder.Size = UDim2.new(1, -20, 1, -9)
 holder.Parent = textlist
 addCorner(holder, UDim.new(0, 4))
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = uipallet.Main
+button.BackgroundColor3 = uipallet.Surface
 button.Position = UDim2.fromOffset(1, 1)
 button.Size = UDim2.new(1, -2, 1, -2)
 button.Text = ''
@@ -43,7 +43,7 @@ title.FontFace = uipallet.Font
 title.Position = UDim2.fromOffset(35, 6)
 title.Size = UDim2.new(1, -35, 0, 15)
 title.Text = props.Name
-title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+title.TextColor3 = uipallet.Text
 title.TextSize = 15
 title.TextTruncate = Enum.TextTruncate.AtEnd
 title.TextXAlignment = Enum.TextXAlignment.Left
@@ -63,7 +63,7 @@ items.Parent = button
 addCorner(button, UDim.new(0, 4))
 local textlistwindow = Instance.new('TextButton')
 textlistwindow.AutoButtonColor = false
-textlistwindow.BackgroundColor3 = uipallet.Main
+textlistwindow.BackgroundColor3 = uipallet.Surface
 textlistwindow.BorderSizePixel = 0
 textlistwindow.Position = UDim2.fromOffset(456, 227)
 textlistwindow.Size = UDim2.fromOffset(220, 85)
@@ -91,13 +91,13 @@ title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = textlistwindow
 local close = addCloseButton(textlistwindow)
 local boxholder = Instance.new('Frame')
-boxholder.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+boxholder.BackgroundColor3 = uipallet.SurfaceRaised
 boxholder.Position = UDim2.fromOffset(10, 45)
 boxholder.Size = UDim2.fromOffset(200, 31)
 boxholder.Parent = textlistwindow
 addCorner(boxholder)
 local boxinner = Instance.new('Frame')
-boxinner.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+boxinner.BackgroundColor3 = uipallet.Surface
 boxinner.Position = UDim2.fromOffset(1, 1)
 boxinner.Size = UDim2.new(1, -2, 1, -2)
 boxinner.Parent = boxholder
@@ -107,11 +107,11 @@ textbox.BackgroundTransparency = 1
 textbox.ClearTextOnFocus = false
 textbox.FontFace = uipallet.Font
 textbox.PlaceholderText = props.Placeholder or 'Add entry...'
-textbox.PlaceholderColor3 = Color3.new(0.8, 0.8, 0.8)
+textbox.PlaceholderColor3 = uipallet.Muted
 textbox.Position = UDim2.fromOffset(10, 0)
 textbox.Size = UDim2.new(1, -35, 1, 0)
 textbox.Text = ''
-textbox.TextColor3 = Color3.new(1, 1, 1)
+textbox.TextColor3 = uipallet.Text
 textbox.TextSize = 13
 textbox.TextXAlignment = Enum.TextXAlignment.Left
 textbox.Parent = boxholder
@@ -124,7 +124,7 @@ if props.Player then
 	autocomplete.Position = UDim2.fromOffset(10, 0)
 	autocomplete.Size = UDim2.new(1, -35, 1, 0)
 	autocomplete.Text = ''
-	autocomplete.TextColor3 = Color3.new(0.6, 0.6, 0.6)
+	autocomplete.TextColor3 = uipallet.Muted
 	autocomplete.TextSize = 13
 	autocomplete.TextXAlignment = Enum.TextXAlignment.Left
 	autocomplete.Parent = boxholder

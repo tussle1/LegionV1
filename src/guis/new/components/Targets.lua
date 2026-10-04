@@ -14,14 +14,14 @@ targets.Parent = children
 component.Object = targets
 addTooltip(targets, props.Tooltip)
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+holder.BackgroundColor3 = uipallet.SurfaceRaised
 holder.Position = UDim2.fromOffset(10, 4)
 holder.Size = UDim2.new(1, -20, 1, -9)
 holder.Parent = targets
 addCorner(holder, UDim.new(0, 4))
 local button = Instance.new('TextButton')
 button.AutoButtonColor = false
-button.BackgroundColor3 = uipallet.Main
+button.BackgroundColor3 = uipallet.Surface
 button.Position = UDim2.fromOffset(1, 1)
 button.Size = UDim2.new(1, -2, 1, -2)
 button.Text = ''
@@ -60,7 +60,7 @@ layout.Padding = UDim.new(0, 6)
 layout.Parent = iconholder
 local targetswindow = Instance.new('TextButton')
 targetswindow.AutoButtonColor = false
-targetswindow.BackgroundColor3 = uipallet.Main
+targetswindow.BackgroundColor3 = uipallet.Surface
 targetswindow.BorderSizePixel = 0
 targetswindow.Position = UDim2.fromOffset(456, 139)
 targetswindow.Size = UDim2.fromOffset(220, 145)
@@ -78,7 +78,7 @@ icon.Size = UDim2.fromOffset(18, 12)
 icon.Parent = targetswindow
 local windowtitle = Instance.new('TextLabel')
 windowtitle.BackgroundTransparency = 1
-windowtitle.FontFace = uipallet.Font
+windowtitle.FontFace = uipallet.FontSemiBold
 windowtitle.Size = UDim2.new(1, -36, 0, 20)
 windowtitle.Position = UDim2.fromOffset(math.abs(windowtitle.Size.X.Offset), 11)
 windowtitle.Text = 'Target settings'
@@ -154,7 +154,7 @@ function component:UpdateText()
 	end
 
 	title.Text = 'Target: '..(#newText > 0 and table.concat(newText, ', ') or 'Nothing')
-	title.TextColor3 = #newText > 0 and uipallet.Text or Color3.fromRGB(255, 90, 90)
+	title.TextColor3 = #newText > 0 and uipallet.Text or uipallet.Danger
 end
 
 component.Players = components.TargetsButton({

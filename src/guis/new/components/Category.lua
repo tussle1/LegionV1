@@ -6,7 +6,7 @@ local component = {
 
 local window = Instance.new('TextButton')
 window.AutoButtonColor = false
-window.BackgroundColor3 = uipallet.Main
+window.BackgroundColor3 = uipallet.Surface
 window.Name = props.Name..'Category'
 window.Position = UDim2.fromOffset(236, 60)
 window.Size = UDim2.fromOffset(220, 41)
@@ -19,13 +19,13 @@ addDragHandler(window)
 local icon = Instance.new('ImageLabel')
 icon.BackgroundTransparency = 1
 icon.Image = props.Icon
-icon.ImageColor3 = uipallet.Text
+icon.ImageColor3 = uipallet.Accent
 icon.Position = UDim2.fromOffset(12, (icon.Size.X.Offset > 20 and 14 or 13))
 icon.Size = props.Size
 icon.Parent = window
 local title = Instance.new('TextLabel')
 title.BackgroundTransparency = 1
-title.FontFace = uipallet.Font
+title.FontFace = uipallet.FontSemiBold
 title.Size = UDim2.new(1, -(props.Size.X.Offset > 18 and 40 or 33), 0, 41)
 title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
 title.Text = props.Name
@@ -44,7 +44,7 @@ addTooltip(pencilbutton, 'Edit hidden modules')
 local pencil = Instance.new('ImageLabel')
 pencil.BackgroundTransparency = 1
 pencil.Image = getvapeasset('newvape/assets/new/editlarge.png')
-pencil.ImageColor3 = Color3.fromRGB(140, 140, 140)
+pencil.ImageColor3 = uipallet.Muted
 pencil.Size = UDim2.fromOffset(12, 12)
 pencil.Position = UDim2.fromOffset(4, 14)
 pencil.Parent = pencilbutton
@@ -57,7 +57,7 @@ arrowbutton.Parent = window
 local arrow = Instance.new('ImageLabel')
 arrow.BackgroundTransparency = 1
 arrow.Image = getvapeasset('newvape/assets/new/downexpand.png')
-arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+arrow.ImageColor3 = uipallet.Muted
 arrow.Size = UDim2.fromOffset(9, 4)
 arrow.Position = UDim2.fromOffset(9, 18)
 arrow.Rotation = 180
@@ -68,7 +68,7 @@ done.FontFace = uipallet.Font
 done.Position = UDim2.new(1, -73, 0, 0)
 done.Size = UDim2.fromOffset(42, 40)
 done.Text = 'DONE'
-done.TextColor3 = Color3.fromRGB(140, 140, 140)
+done.TextColor3 = uipallet.Muted
 done.TextSize = 12
 done.Visible = false
 done.Parent = window
@@ -85,8 +85,8 @@ children.Size = UDim2.new(1, 0, 1, -41)
 children.Visible = false
 children.Parent = window
 local divider = Instance.new('Frame')
-divider.BackgroundColor3 = Color3.new(1, 1, 1)
-divider.BackgroundTransparency = 0.928
+divider.BackgroundColor3 = uipallet.Border
+divider.BackgroundTransparency = 0.45
 divider.BorderSizePixel = 0
 divider.Position = UDim2.fromOffset(0, 37)
 divider.Size = UDim2.new(1, 0, 0, 1)
@@ -94,8 +94,9 @@ divider.Visible = false
 divider.Parent = window
 local stroke = Instance.new('UIStroke')
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-stroke.Color = Color3.fromRGB(85, 85, 85)
-stroke.Transparency = 0.8
+stroke.Color = uipallet.Border
+stroke.Thickness = 1
+stroke.Transparency = 0.32
 stroke.Parent = window
 local windowlist = Instance.new('UIListLayout')
 windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -152,11 +153,11 @@ arrowbutton.MouseButton2Click:Connect(function()
 end)
 
 arrowbutton.MouseEnter:Connect(function()
-	arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+	arrow.ImageColor3 = uipallet.Text
 end)
 
 arrowbutton.MouseLeave:Connect(function()
-	arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+	arrow.ImageColor3 = uipallet.Muted
 end)
 
 done.MouseButton1Click:Connect(function()
@@ -177,11 +178,11 @@ done.MouseButton1Click:Connect(function()
 end)
 
 done.MouseEnter:Connect(function()
-	done.TextColor3 = Color3.fromRGB(220, 220, 220)
+	done.TextColor3 = uipallet.Text
 end)
 
 done.MouseLeave:Connect(function()
-	done.TextColor3 = Color3.fromRGB(140, 140, 140)
+	done.TextColor3 = uipallet.Muted
 end)
 
 pencilbutton.MouseButton1Click:Connect(function()
@@ -206,11 +207,11 @@ pencilbutton.MouseButton2Click:Connect(function()
 end)
 
 pencilbutton.MouseEnter:Connect(function()
-	pencil.ImageColor3 = Color3.fromRGB(220, 220, 220)
+	pencil.ImageColor3 = uipallet.Text
 end)
 
 pencilbutton.MouseLeave:Connect(function()
-	pencil.ImageColor3 = Color3.fromRGB(140, 140, 140)
+	pencil.ImageColor3 = uipallet.Muted
 end)
 
 window.MouseEnter:Connect(function()

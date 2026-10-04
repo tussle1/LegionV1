@@ -5,7 +5,7 @@ local ColorMode
 local Scale
 local Shadow
 local Gradient
-local GradientV4
+local GradientAccent
 local Animations
 local Watermark
 local Background
@@ -51,7 +51,7 @@ Sort = TextGUI:CreateDropdown({
 })
 FontOption = TextGUI:CreateFont({
 	Name = 'Font',
-	Default = 'Arial',
+	Default = 'Gotham',
 	Function = function()
 		vape:UpdateTextGUI()
 	end
@@ -94,12 +94,12 @@ Gradient = TextGUI:CreateToggle({
 	Name = 'Gradient',
 	Tooltip = 'Renders a gradient',
 	Function = function(callback)
-		GradientV4.Object.Visible = callback
+		GradientAccent.Object.Visible = callback
 		vape:UpdateTextGUI()
 	end
 })
-GradientV4 = TextGUI:CreateToggle({
-	Name = 'V4 Gradient',
+GradientAccent = TextGUI:CreateToggle({
+	Name = 'Accent gradient',
 	Function = function()
 		vape:UpdateTextGUI()
 	end,
@@ -115,7 +115,7 @@ Animations = TextGUI:CreateToggle({
 })
 Watermark = TextGUI:CreateToggle({
 	Name = 'Watermark',
-	Tooltip = 'Renders a vape watermark',
+	Tooltip = 'Renders the LEGION watermark',
 	Function = function()
 		vape:UpdateTextGUI()
 	end
@@ -159,7 +159,7 @@ HideModules = TextGUI:CreateToggle({
 HideModulesList = TextGUI:CreateTextList({
 	Name = 'Blacklist',
 	Tooltip = 'Name of module to hide.',
-	Color = Color3.fromRGB(250, 50, 56),
+	Color = uipallet.Danger,
 	Function = function()
 		vape:UpdateTextGUI()
 	end,
@@ -192,7 +192,7 @@ CustomTextBox = TextGUI:CreateTextBox({
 })
 CustomTextFont = TextGUI:CreateFont({
 	Name = 'Custom Font',
-	Default = 'Arial',
+	Default = 'Gotham',
 	Function = function()
 		vape:UpdateTextGUI()
 	end,
@@ -224,41 +224,49 @@ CustomTextColorSlider = TextGUI:CreateColorSlider({
 
 Scale = Instance.new('UIScale')
 Scale.Parent = TextGUI.Children
-local Logo = Instance.new('ImageLabel')
-Logo.BackgroundColor3 = Color3.new()
+local Logo = Instance.new('TextLabel')
 Logo.BackgroundTransparency = 1
 Logo.BorderSizePixel = 0
-Logo.Image = getvapeasset('newvape/assets/new/vapelogo.png')
+Logo.FontFace = uipallet.FontSemiBold
 Logo.Name = 'Logo'
-Logo.Position = UDim2.new(1, -142, 0, 3)
-Logo.Size = UDim2.fromOffset(81, 24)
+Logo.Position = UDim2.new(1, -81, 0, 3)
+Logo.Size = UDim2.fromOffset(54, 24)
+Logo.Text = 'LEGI'
+Logo.TextColor3 = Color3.new(1, 1, 1)
+Logo.TextSize = 21
+Logo.TextXAlignment = Enum.TextXAlignment.Left
+Logo.TextYAlignment = Enum.TextYAlignment.Center
 Logo.Visible = false
 Logo.Parent = TextGUI.Children
-local LogoV4 = Instance.new('ImageLabel')
-LogoV4.BackgroundColor3 = Color3.new()
-LogoV4.BackgroundTransparency = 1
-LogoV4.BorderSizePixel = 0
-LogoV4.Image = getvapeasset('newvape/assets/new/v4.png')
-LogoV4.Name = 'Logo2'
-LogoV4.Position = UDim2.new(1, -1, 0, 0)
-LogoV4.Size = UDim2.fromOffset(35, 24)
-LogoV4.Parent = Logo
+local LogoAccent = Instance.new('TextLabel')
+LogoAccent.BackgroundTransparency = 1
+LogoAccent.BorderSizePixel = 0
+LogoAccent.FontFace = uipallet.FontSemiBold
+LogoAccent.Name = 'Accent'
+LogoAccent.Position = UDim2.new(1, -4, 0, 0)
+LogoAccent.Size = UDim2.fromOffset(31, 24)
+LogoAccent.Text = 'ON'
+LogoAccent.TextColor3 = Color3.new(1, 1, 1)
+LogoAccent.TextSize = 21
+LogoAccent.TextXAlignment = Enum.TextXAlignment.Left
+LogoAccent.TextYAlignment = Enum.TextYAlignment.Center
+LogoAccent.Parent = Logo
 local LogoShadow = Logo:Clone()
-LogoShadow.ImageColor3 = Color3.new()
-LogoShadow.ImageTransparency = 0.65
+LogoShadow.TextColor3 = Color3.new()
+LogoShadow.TextTransparency = 0.65
 LogoShadow.Position = UDim2.fromOffset(1, 1)
 LogoShadow.Visible = true
 LogoShadow.ZIndex = 0
 LogoShadow.Parent = Logo
-LogoShadow.Logo2.ImageColor3 = Color3.new()
-LogoShadow.Logo2.ImageTransparency = 0.65
-LogoShadow.Logo2.ZIndex = 0
+LogoShadow.Accent.TextColor3 = Color3.new()
+LogoShadow.Accent.TextTransparency = 0.65
+LogoShadow.Accent.ZIndex = 0
 local LogoGradient = Instance.new('UIGradient')
 LogoGradient.Rotation = 90
 LogoGradient.Parent = Logo
-local LogoGradient2 = Instance.new('UIGradient')
-LogoGradient2.Rotation = 90
-LogoGradient2.Parent = LogoV4
+local LogoAccentGradient = Instance.new('UIGradient')
+LogoAccentGradient.Rotation = 90
+LogoAccentGradient.Parent = LogoAccent
 local LabelCustom = Instance.new('TextLabel')
 LabelCustom.BackgroundTransparency = 1
 LabelCustom.BorderSizePixel = 0
@@ -325,7 +333,7 @@ function vape:UpdateTextGUI(afterload)
 		local isRight = TextGUI.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
 
 		Logo.Visible = Watermark.Enabled
-		Logo.Position = isRight and UDim2.new(1 / Scale.Scale, -113, 0, 6) or UDim2.fromOffset(0, 6)
+		Logo.Position = isRight and UDim2.new(1 / Scale.Scale, -81, 0, 6) or UDim2.fromOffset(0, 6)
 		LogoShadow.Visible = Shadow.Enabled
 		LabelCustom.Text = CustomTextBox.Value
 		LabelCustom.FontFace = CustomTextFont.Value
@@ -371,7 +379,7 @@ function vape:UpdateTextGUI(afterload)
 
 				if Background.Enabled then
 					bkg = Instance.new('Frame')
-					bkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.15)
+					bkg.BackgroundColor3 = uipallet.Surface
 					bkg.BackgroundTransparency = BackgroundTransparency.Value
 					bkg.BorderSizePixel = 0
 					bkg.Size = UDim2.new(1, 0, 1, 0)
@@ -379,7 +387,7 @@ function vape:UpdateTextGUI(afterload)
 					local corner = Instance.new('UICorner')
 					corner.Parent = bkg
 					local line = Instance.new('Frame')
-					line.BackgroundColor3 = Color3.new()
+					line.BackgroundColor3 = uipallet.Border
 					line.BackgroundTransparency = 0.928 + (0.072 * math.clamp((BackgroundTransparency.Value - 0.5) / 0.5, 0, 1))
 					line.BorderSizePixel = 0
 					line.Position = UDim2.new(0, 0, 1, -1)
@@ -501,7 +509,7 @@ function TextGUI:UpdateColor(hue, sat, val, default)
 		ColorSequenceKeypoint.new(0, Color3.fromHSV(hue, sat, val)),
 		ColorSequenceKeypoint.new(1, Gradient.Enabled and Color3.fromHSV(vape:Color((hue - 0.075) % 1)) or Color3.fromHSV(hue, sat, val))
 	})
-	LogoGradient2.Color = Gradient.Enabled and GradientV4.Enabled and LogoGradient.Color or ColorSequence.new({
+	LogoAccentGradient.Color = Gradient.Enabled and GradientAccent.Enabled and LogoGradient.Color or ColorSequence.new({
 		ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
 		ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
 	})

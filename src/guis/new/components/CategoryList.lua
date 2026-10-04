@@ -6,11 +6,11 @@ local component = {
 	Options = {},
 	Type = 'CategoryList'
 }
-props.Color = props.Color or Color3.fromRGB(5, 134, 105)
+props.Color = props.Color or uipallet.Accent
 
 local window = Instance.new('TextButton')
 window.AutoButtonColor = false
-window.BackgroundColor3 = uipallet.Main
+window.BackgroundColor3 = uipallet.Surface
 window.Name = props.Name..'CategoryList'
 window.Position = UDim2.fromOffset(240, 46)
 window.Size = UDim2.fromOffset(220, 45)
@@ -23,7 +23,7 @@ addDragHandler(window)
 local icon = Instance.new('ImageLabel')
 icon.BackgroundTransparency = 1
 icon.Image = props.Icon
-icon.ImageColor3 = uipallet.Text
+icon.ImageColor3 = uipallet.Accent
 icon.Name = 'Icon'
 icon.Size = props.Size
 icon.Position = props.Position or UDim2.fromOffset(12, (props.Size.X.Offset > 20 and 13 or 12))
@@ -52,7 +52,7 @@ arrow.Size = UDim2.fromOffset(9, 4)
 arrow.Position = UDim2.fromOffset(15, 20)
 arrow.BackgroundTransparency = 1
 arrow.Image = getvapeasset('newvape/assets/new/downexpand.png')
-arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+arrow.ImageColor3 = uipallet.Muted
 arrow.Rotation = 180
 arrow.Parent = arrowbutton
 local children = Instance.new('ScrollingFrame')
@@ -68,7 +68,7 @@ children.CanvasSize = UDim2.new()
 children.Parent = window
 local childrentwo = Instance.new('Frame')
 childrentwo.BackgroundTransparency = 1
-childrentwo.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+childrentwo.BackgroundColor3 = uipallet.SurfaceRaised
 childrentwo.Visible = false
 childrentwo.Parent = children
 local settings = Instance.new('ImageButton')
@@ -81,8 +81,8 @@ settings.Position = UDim2.new(1, -56, 0, 15)
 settings.Size = UDim2.fromOffset(14, 14)
 settings.Parent = window
 local divider = Instance.new('Frame')
-divider.BackgroundColor3 = Color3.new(1, 1, 1)
-divider.BackgroundTransparency = 0.928
+divider.BackgroundColor3 = uipallet.Border
+divider.BackgroundTransparency = 0.45
 divider.BorderSizePixel = 0
 divider.Name = 'Divider'
 divider.Position = UDim2.fromOffset(0, 41)
@@ -91,8 +91,8 @@ divider.Visible = false
 divider.Parent = window
 local stroke = Instance.new('UIStroke')
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-stroke.Color = Color3.fromRGB(85, 85, 85)
-stroke.Transparency = 0.8
+stroke.Color = uipallet.Border
+stroke.Transparency = 0.32
 stroke.Parent = window
 local windowlist = Instance.new('UIListLayout')
 windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -104,13 +104,13 @@ windowlisttwo.HorizontalAlignment = Enum.HorizontalAlignment.Center
 windowlisttwo.SortOrder = Enum.SortOrder.LayoutOrder
 windowlisttwo.Parent = childrentwo
 local addbkg = Instance.new('Frame')
-addbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+addbkg.BackgroundColor3 = uipallet.SurfaceRaised
 addbkg.Position = UDim2.fromOffset(10, 45)
 addbkg.Size = UDim2.fromOffset(200, 31)
 addbkg.Parent = children
 addCorner(addbkg)
 local addbox = addbkg:Clone()
-addbox.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+addbox.BackgroundColor3 = uipallet.Surface
 addbox.Position = UDim2.fromOffset(1, 1)
 addbox.Size = UDim2.new(1, -2, 1, -2)
 addbox.Parent = addbkg
@@ -119,11 +119,11 @@ addvalue.BackgroundTransparency = 1
 addvalue.ClearTextOnFocus = false
 addvalue.FontFace = uipallet.Font
 addvalue.PlaceholderText = props.Placeholder or 'Add entry...'
-addvalue.PlaceholderColor3 = Color3.new(0.8, 0.8, 0.8)
+addvalue.PlaceholderColor3 = uipallet.Muted
 addvalue.Position = UDim2.fromOffset(10, 0)
 addvalue.Size = UDim2.new(1, -35, 1, 0)
 addvalue.Text = ''
-addvalue.TextColor3 = Color3.new(1, 1, 1)
+addvalue.TextColor3 = uipallet.Text
 addvalue.TextSize = 13
 addvalue.TextXAlignment = Enum.TextXAlignment.Left
 addvalue.Parent = addbkg
@@ -136,7 +136,7 @@ if props.Player then
 	autocomplete.Position = UDim2.fromOffset(10, 0)
 	autocomplete.Size = UDim2.new(1, -35, 1, 0)
 	autocomplete.Text = ''
-	autocomplete.TextColor3 = Color3.new(0.6, 0.6, 0.6)
+	autocomplete.TextColor3 = uipallet.Muted
 	autocomplete.TextSize = 13
 	autocomplete.TextXAlignment = Enum.TextXAlignment.Left
 	autocomplete.Parent = addbkg
@@ -527,11 +527,11 @@ addbutton.MouseButton1Click:Connect(function()
 end)
 
 arrowbutton.MouseEnter:Connect(function()
-	arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+	arrow.ImageColor3 = uipallet.Text
 end)
 
 arrowbutton.MouseLeave:Connect(function()
-	arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+	arrow.ImageColor3 = uipallet.Muted
 end)
 
 arrowbutton.MouseButton1Click:Connect(function()

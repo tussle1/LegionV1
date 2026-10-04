@@ -5,7 +5,7 @@ local component = {
 
 local targetsbutton = Instance.new('TextButton')
 targetsbutton.AutoButtonColor = false
-targetsbutton.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+targetsbutton.BackgroundColor3 = uipallet.SurfaceRaised
 targetsbutton.Position = props.Position
 targetsbutton.Size = UDim2.fromOffset(98, 31)
 targetsbutton.Text = ''
@@ -15,7 +15,7 @@ component.Object = targetsbutton
 addCorner(targetsbutton)
 addTooltip(targetsbutton, props.Tooltip)
 local holder = Instance.new('Frame')
-holder.BackgroundColor3 = uipallet.Main
+holder.BackgroundColor3 = uipallet.Surface
 holder.Position = UDim2.fromOffset(1, 1)
 holder.Size = UDim2.new(1, -2, 1, -2)
 holder.Parent = targetsbutton
@@ -24,7 +24,7 @@ local icon = Instance.new('ImageLabel')
 icon.AnchorPoint = Vector2.new(0.5, 0.5)
 icon.BackgroundTransparency = 1
 icon.Image = props.Icon
-icon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+icon.ImageColor3 = uipallet.Accent
 icon.Position = UDim2.fromScale(0.5, 0.5)
 icon.Size = props.IconSize
 icon.Parent = holder
@@ -34,11 +34,11 @@ function component:Toggle()
 	self.Enabled = not self.Enabled
 
 	tween:Tween(holder, uipallet.Tween, {
-		BackgroundColor3 = self.Enabled and Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value) or uipallet.Main
+		BackgroundColor3 = self.Enabled and Color3.fromHSV(vape.GUIColor.Hue, vape.GUIColor.Sat, vape.GUIColor.Value) or uipallet.Surface
 	})
 
 	tween:Tween(icon, uipallet.Tween, {
-		ImageColor3 = self.Enabled and Color3.new(1, 1, 1) or color.Light(uipallet.Main, 0.37)
+		ImageColor3 = self.Enabled and Color3.new(1, 1, 1) or uipallet.Accent
 	})
 
 	props.Targets:UpdateText()
@@ -60,11 +60,11 @@ end)
 targetsbutton.MouseLeave:Connect(function()
 	if not component.Enabled then
 		tween:Tween(holder, uipallet.Tween, {
-			BackgroundColor3 = uipallet.Main
+			BackgroundColor3 = uipallet.Surface
 		})
 
 		tween:Tween(icon, uipallet.Tween, {
-			ImageColor3 = color.Light(uipallet.Main, 0.37)
+			ImageColor3 = uipallet.Accent
 		})
 	end
 end)

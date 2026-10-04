@@ -1,6 +1,6 @@
 # LEGION
 
-A Roblox client fork and rebrand owned and maintained by **Xylen**.
+A Roblox client fork and rebrand owned and maintained by **xylen**.
 
 ## Provenance
 
@@ -9,3 +9,5 @@ LEGION is a rebranded fork, not a clean-room implementation. The current `loadst
 The branding changes are in the checked-in source. The current entrypoint and build workflow still target upstream hosting, so a live build will not use these changes until it is built and hosted through a destination you control.
 
 See [CREDITS.md](CREDITS.md) for source and build-tool references, and [LICENSE](LICENSE) for this repository's stated license.
+
+by @w49u on discord
